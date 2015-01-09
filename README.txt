@@ -1,8 +1,8 @@
-ProjectProposalHandler Sample
+CustomTagServiceHandler Sample
 -----------------------------
 Introduction
 ============
-The idea of this sample is to demonstrate how to use media type handlers.  The sample application is to process project proposals, so we'll be using a component that intercepts Registry put() requests with a particular "proposal" media-type.  The Handler will read the proposal and mark it as valid or not.  In order to be a valid proposal there should be a number of fields - if all of them are there then the handler will mark the proposal as valid.  If one or more fields are missing then the proposal would be invalid.
+The idea of this sample is to apply namespace as a Tag while creating the service .
 
 Steps
 -----
@@ -13,9 +13,9 @@ Steps
 
 2. Edit the registry.xml file which is in 'GREG_HOME/repository/conf' folder with the following xml snippet.
 
-    	<handler class="org.wso2.carbon.registry.samples.handler.ProjectProposalMediaTypeHandler" methods="PUT">
+    	<handler class="org.wso2.carbon.registry.samples.handler.CustomTagServiceHandler">
         	<filter class="org.wso2.carbon.registry.core.jdbc.handlers.filters.MediaTypeMatcher">
-           		 <property name="mediaType">pp</property>
+           		 <property name="mediaType">application/vnd.wso2-service+xml</property>
        		</filter>
     	</handler>
 
