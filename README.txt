@@ -26,14 +26,10 @@ Steps
 
 4. Go to admin console.
 
-5. Browse the resources tree and add a new resource by visiting Resources --> Browse menue.
+5. Browse the Metadata Add list and select services.
 
-6. Select the 'Upload content from file' from from the drop down list.
+6. Add a new service.
 
-7. Select your project proposal and type the media type as 'pp' (you can use whatever the media type you prefer).
+7. Save the service.
 
-	Note:- Sample project proposals are available in "GREG_HOME/samples/handler/src/resources" folder.
-
-8. And 'Add' it.
-
-9. Browse to the added project proposal. You could see the Properties and the Tag have been added to the resource.
+8. You could see the Tag with the namespace have been added to the resource.
