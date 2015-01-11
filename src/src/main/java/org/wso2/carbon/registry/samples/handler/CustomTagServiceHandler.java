@@ -35,6 +35,11 @@ import javax.xml.stream.XMLStreamReader;
 
 import java.io.StringReader;
 
+/**
+ * The idea of this sample is to apply namespace as a Tag while creating the service.
+ * At the time of service creation this Handler class will get hit and will apply the
+ * namespace as a Tag into the service.
+ */
 public class CustomTagServiceHandler extends Handler {
 
     public void put(RequestContext requestContext) throws RegistryException {
@@ -45,11 +50,12 @@ public class CustomTagServiceHandler extends Handler {
         CommonUtil.acquireUpdateLock();
         try {
 
-            OMElement element;
             String resourceContent;
-            Object resourceContentObj = requestContext.getResource().getContent();
             String resourcePath = requestContext.getResourcePath().getPath();
+            OMElement resourceElement;
 
+            /** derive registry resource content */
+            Object resourceContentObj = requestContext.getResource().getContent();
             if (resourceContentObj instanceof String) {
                 resourceContent = (String) resourceContentObj;
             } else {
@@ -57,22 +63,28 @@ public class CustomTagServiceHandler extends Handler {
             }
 
             try {
-                XMLStreamReader reader = XMLInputFactory.newInstance().
+                /** Initialize XMLInputFactory */
+                XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+                /** Reading xml content from string resourceContent and creating XMLStreamReader */
+                XMLStreamReader reader = inputFactory.
                         createXMLStreamReader(new StringReader(resourceContent));
                 StAXOMBuilder builder = new StAXOMBuilder(reader);
-                element = builder.getDocumentElement();
+                resourceElement = builder.getDocumentElement();
             } catch (XMLStreamException e) {
                 String msg = "An error occurred " +
                         "while reading the resource at " + resourcePath + ".";
                 throw new RegistryException(msg, e);
             }
 
-            OMElement elementOverview = element
+            /** get the first OMElement child with name 'overview' */
+            OMElement elementOverview = resourceElement
                     .getFirstChildWithName(new QName(CommonConstants.SERVICE_ELEMENT_NAMESPACE, "overview"));
+            /** get the first OMElement child with name 'namespace' */
             String namespace = elementOverview
                     .getFirstChildWithName(new QName(CommonConstants.SERVICE_ELEMENT_NAMESPACE, "namespace")).getText();
 
             Registry registry = requestContext.getRegistry();
+            /** add the resource namespace as the tag */
             registry.applyTag(resourcePath, namespace);
 
         } finally {
