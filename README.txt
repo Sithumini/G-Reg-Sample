@@ -2,7 +2,9 @@ CustomTagServiceHandler Sample
 -----------------------------
 Introduction
 ============
-The idea of this sample is to apply namespace as a Tag while creating the service .
+The idea of this sample is to apply namespace as a Tag while creating the service. A tag is a keyword that
+allows to find a resource or collection while using the Search function. With this you can retrieve the resource 
+by the namespace tag.
 
 Steps
 -----
